@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My first VR world</title>
+
+    <script src="js/aframe.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <a-scene load>
+
+        <a-assets>
+            <a-asset-item id="kwast-obj" src="kwast.gltf" ></a-asset-item>
+        </a-assets>
+    
+        <a-camera id="js--camera">
+            <a-entity   
+            animationclick="property: scale; startEvents: click; easing: easeInCubic; dur: 500; from: 0.2 0.2 0.2; to: 1 1 1"
+            animationfusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.2 0.2 0.2"
+            animation="property: scale; startEvents: fusing; easing: easeInCubic; dur: 500; to: 1 1 1 "
+
+            cursor = "fuse: true; fuseTimeout: 2000"
+            material = "color: black; shader: flat"
+            geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
+            position = "0 0.5"
+            raycaster = "objects: .js--place"
+            
+            ></a-entity>
+
+            <!--<a-entity   
+            gltf-model="#kwast-obj" position = "1 0 -2.5" scale="0.25 0.25 0.25"
+               ></a-entity>
+            orgineel code-->
+            <a-entity   
+            gltf-model="#kwast-obj" position = "0 -0.5 -2" scale="0.25 0.25 0.25"
+               ></a-entity>
+
+               <a-cursor id="js--cursor" color="black"></a-cursor>
+        </a-camera>
+
+        <a-sky color="grey"></a-sky>
+     
+
+        <!--kleuren-->
+        <a-box id="blue"  class="js--color"  color="blue" position="-6 0.5 -4"></a-box>
+        <a-box id="yellow" class="js--color"  color="yellow" position="6 0.5 -4"></a-box>
+        <a-box id= "red" class="js--color"  color="red" position="-6 0.5 -8"></a-box>
+        <a-box id= "green" class="js--color"  color="green" position="6 0.5 -8"></a-box>
+
+        <!--placeholders-->
+        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="0 0 -15"></a-cylinder>
+        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="0 0 -4"></a-cylinder>
+        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="4 0 -10"></a-cylinder>
+        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="-4 0 -10"></a-cylinder>
+
+
+        <a-plane class="js--pixel" position="0.5 0 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-0.5 0 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-1.5 0 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="1.5 0 -8" color="grey" width="1" height="1"></a-plane>
+        
+        <a-plane class="js--pixel" position="0.5 1 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-0.5 1 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="1.5 1 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-1.5 1 -8" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" position="0.5 2 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-0.5 2 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="1.5 2 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-1.5 2 -8" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" position="0.5 3 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-0.5 3 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="1.5 3 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" position="-1.5 3 -8" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -8.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -11.5" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -8.5" color="grey"width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -11.5" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -8.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -11.5" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -8.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -11.5" color="grey"width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  1 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 1 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  1 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 1 -12" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  2 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 2 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  2 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 2 -12" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  3 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 3 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  3 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 3 -12" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  0 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 0 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  0 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 0 -12" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -8.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -11.5" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -8.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -11.5" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -8.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -11.5" color="grey" width="1" height="1"></a-plane>
+
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -8.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -9.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -10.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -11.5" color="grey" width="1" height="1"></a-plane>
+     
+        <a-plane class="js--ground" position="0  0  0"  width="50" height="50" rotation = "-90 0 0" color="white"></a-plane><!--grond-->
+
+        <!--<a-plane class="js--ground" position="0  0  0"  width="50" height="50" rotation = "-90 0 0" color="brown"></a-plane> origneel grond-->
+
+
+    
+    </a-scene>
+</body>
+</html>

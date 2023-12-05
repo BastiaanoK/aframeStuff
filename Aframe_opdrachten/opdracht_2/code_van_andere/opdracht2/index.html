@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="aframe.min.js"></script>
+    <script src="main.js"></script>
+    <title>STAR WARS Opdracht</title>
+</head>
+
+<!-- notes 
+
+x y z
+rechts hoogte -verte
+
+
+-->
+
+<body>
+    <a-scene>
+
+        <a-assets>
+            <img id="babyyoda" src="babyyoda.jpg"></img >
+            <img id="earth" src="earth.jpg"></img >
+            <img id="legosw" src="legoSW.jpg"></img >
+            <img id="space" src="space.jpg"></img >
+        </a-assets>
+
+        <a-camera id="js--camera" position="0 1.5 9">
+            <a-entity id="camera-rondje"
+                animation__click="property: scale; 
+                startEvents: click;
+                easing: easeInCubic; 
+                dur: 150;
+                from: 0.1 0.1 0.1;
+                to: 1 1 1; 
+                "
+
+                animation__fusing="
+                property: scale; 
+                startEvents: fusing;
+                easing: easeInCubic; 
+                dur: 1000;
+                from: 1 1 1; to: 0.1 0.1 0.1
+                "
+
+                animation="
+                property: scale; 
+                startEvents: mouseleave;
+                easing: easeInCubic; 
+                dur: 500;
+                to: 1 1 1;
+                "
+
+                cursor = "fuse: true; fuseTimeout: 1000"
+                material = "color: black; shader: flat"
+                geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
+                position = "0 0 -0.5"
+                raycaster= "objects: .js--place, .js--pickup, .js--object-place, .js--pixel-plane"
+            ></a-entity>
+        </a-camera>
+        <a-plane id="grond" color="#808080" rotation="-90 0 0" width="40" height="40" opacity="0.8"></a-plane>
+        <a-sky material="src: #space" color="grey"></a-sky>
+
+        
+
+        <!-- species (yoda image), mouseleave-->
+        <a-entity specie 
+            class="js--place"
+            position="-15 6 -10" 
+            rotation="0 0 0" 
+            geometry="primitive: box; width: 6; depth: 6; height: 6" 
+            material="src: #babyyoda">
+            <a-text id="js--specie" 
+                position="0 -4 4"
+                rotation="0 0 0"
+                width="30"
+                align="center"
+                ></a-text>
+            <a-plane 
+                color="white"
+                id="js--specie--size"
+                position="-5 5 4"
+                height="1"
+            ></a-plane>
+        </a-entity>
+
+        <!-- movie (lego image), mouseenter-->
+        <a-entity movie class="js--place"
+            position="-2 6 -10" 
+            rotation="0 0 0" 
+            geometry="primitive: plane; width: 8; depth: 6; height: 6" 
+            material="src: #legosw">
+            <a-text id="js--movie" 
+                position="0 -4 4"
+                rotation="0 0 0"
+                width="30"
+                align="center"
+                ></a-text>
+        </a-entity>
+
+        <!-- planet (), click -->
+        <a-entity planet 
+            class="js--place"
+            position="18 6 -10" 
+            rotation="0 0 0" >
+            <a-text id="js--planet" 
+                position="0 -4 4"
+                rotation="0 0 0"
+                width="30"
+                align="center"
+            ></a-text>
+            <a-sphere
+                id="js--planet--size"
+                class="js--place"
+                radius="1.2"
+                position="0 0 -30"
+                material="src: #earth"
+            ></a-sphere>
+        </a-entity>
+
+
+    </a-scene>
+</body>
+</html>

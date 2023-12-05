@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lopen en oppakken</title>
+    <script src="js/aframe.min.js"></script>
+    <script src="js/main.js"></script>
+
+</head>
+<body>
+    <a-scene id="js--scene">
+
+        <a-assets>
+            <a-asset-item id = "kwast-obj" sr="D:\IPMETH3\Aframe_opdrachten\uitgebreidere video's\kwast.gltf"></a-asset-item>
+        </a-assets>
+        <a-obj-model src = "#kwast-obj" position="0 1 -5"></a-obj-model>
+
+        <a-camera id="js--camera">
+            <a-entity
+            animationclick="property: scale; startEvents: click; easing: easeInCubic; dur: 500; from: 0.2 0.2 0.2; to: 1 1 1"
+            animationfusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.2 0.2 0.2"
+            animation="property: scale; startEvents: fusing; easing: easeInCubic; dur: 500; to: 1 1 1 "
+
+            cursor = "fuse: true; fuseTimeout: 2000"
+            material = "color: black; shader: flat"
+            geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
+            position = "0 0 -0.5"
+            raycaster = "objects: .js--place .js--pickup"
+            ></a-entity>
+        </a-camera>
+
+        <a-box class="js--place"  color="blue" position="-6 0.5 -4"></a-box>
+        <a-box class="js--place"  color="blue" position="6 0.5 -4"></a-box>
+        <a-box class="js--place"  color="blue" position="-6 0.5 4"></a-box>
+        <a-box class="js--place"  color="blue" position="6 0.5 4"></a-box>
+        
+        <a-box class="js--pickup js--interact"  color="green" position="-4 0.5 -4"></a-box>
+        <a-box class="js--pickup js--interact"  color="green" position="4 0.5 -4"></a-box>
+        <a-box class="js--pickup js--interact"  color="green" position="-4 0.5 4"></a-box>
+        <a-box class="js--pickup js--interact"  color="green" position="4 0.5 4"></a-box>
+
+        <!--placeholders-->
+        <a-cylinder class="js-placeholder js--interact" color="red" radius="0.5" height="0.1" position="0 0 4"></a-cylinder>
+        <a-cylinder class="js-placeholder js--interact" color="red" radius="0.5" height="0.1" position="0 0 -4"></a-cylinder>
+        <a-cylinder class="js-placeholder js--interact" color="red" radius="0.5" height="0.1" position="4 0 0"></a-cylinder>
+        <a-cylinder class="js-placeholder js--interact" color="red" radius="0.5" height="0.1" position="-4 0 0"></a-cylinder>
+
+    </a-scene>
+</body>
+</html>
