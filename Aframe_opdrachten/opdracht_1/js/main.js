@@ -1,70 +1,50 @@
-
-
-
 AFRAME.registerComponent('load', {
+    init: function () {
+        const places = document.getElementsByClassName('js--place');
+        const camera = document.getElementById('js--camera');
+        const cursor = document.getElementById('js--cursor');
+        const pixels = document.getElementsByClassName('js--pixel');
+        const colorSpheres = document.getElementsByClassName('js--color');
+        let brush = "black";
 
+        let colorMix = {
+            currentColor: null,
+            previousColor: null
+        };
 
-    init: function(){
-    const places = document.getElementsByClassName('js--place');
-    const camera = document.getElementById('js--camera');
-    const cursor = document.getElementById('js--cursor');
-    const pixels = document.getElementsByClassName('js--pixel');
+        /* Color Mixing */
+        for (let i = 0; i < colorSpheres.length; i++) {
+            colorSpheres[i].addEventListener("mouseenter", function () {
+                console.log("Entering color sphere");
+                brush = this.getAttribute("color").toLowerCase();
+                cursor.setAttribute("color", brush);
 
-    const blue = document.getElementById('blue');
-    const red = document.getElementById('red');
-    const green = document.getElementById('green');
-    const yellow = document.getElementById('yellow');
+                if (colorMix.currentColor && colorMix.currentColor !== brush) {
+                    colorMix.previousColor = colorMix.currentColor;
+                    colorMix.currentColor = brush;
 
-    const color = document.getElementsByClassName('js--color');
-    let brush = "black";
-    console.log(brush);
+                    const mixedColor = mixColors(colorMix.previousColor, colorMix.currentColor);
+                    brush = mixedColor;
+                    cursor.setAttribute("color", brush);
+                } else {
+                    colorMix.currentColor = brush;
+                }
+            });
 
+            colorSpheres[i].addEventListener("mouseleave", function () {
+                colorMix = {
+                    currentColor: null,
+                    previousColor: null
+                };
+            });
+        }
 
-     /*teleportatie*/
-     
-     for(let i=0; i < places.length; i++){
-        places[i].addEventListener("click", function(evt){
-            console.log("klik place")
-            let att = document.createAttribute("animation");
-            att.value =` property: position; easing: linear; dur: 2000; to: ${ 
-            this.getAttribute("position").x} 
-            ${this.getAttribute("position").y + 1}
-            ${this.getAttribute("position").z}`;
-            camera.setAttribute("animation", att.value);
-
-        });
-    }
-
-    for(let i=0; i < pixels.length; i++){
-        pixels[i].onmouseenter = (event) => {
-            pixels[i].setAttribute("color", brush);
+        /* Painting Pixels */
+        for (let i = 0; i < pixels.length; i++) {
+            console.log("painting");
+            pixels[i].addEventListener("mouseenter", function () {
+                pixels[i].setAttribute("color", brush);
+            });
         }
     }
-
-    /*kleur op planes*/
-    for(let i=0; i < color.length; i++){
-        color[i].onmouseenter = (event) => {
-            console.log("je krijgt kleur");
-            brush = color[i].getAttribute("color");
-            console.log(brush);
-            cursor.setAttribute("color", brush);
-        
-
-        };
-    }
-
-    
-    /*kleurmix*/
-    /*
-    for(let i=0; i < color.length; i++){
-        color[i].onmouseenter = (event) => {
-        if (blue[i].onmouseenter == red[i].onmouseenter) {
-            console.log("colormix");
-            cursor.setAttribute("color", brush);
-            plane.setAttribute("color", "purple");
-        }}; 
-    }
-*/
-    }
-
 });
