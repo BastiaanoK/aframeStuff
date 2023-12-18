@@ -4,8 +4,12 @@ AFRAME.registerComponent('load', {
         const camera = document.getElementById('js--camera');
         const cursor = document.getElementById('js--cursor');
         const pixels = document.getElementsByClassName('js--pixel');
+        const mixer = document.getElementById('color_mixer');
         const colorSpheres = document.getElementsByClassName('js--color');
+        
         let brush = "black";
+        let cursorColor;
+        let mixerColor;
 
         let colorMix = {
             currentColor: null,
@@ -23,23 +27,14 @@ AFRAME.registerComponent('load', {
         }
 
         /* Color Mixing */
+
+        /* color of cursor */
         for (let i = 0; i < colorSpheres.length; i++) {
             colorSpheres[i].addEventListener("mouseenter", function () {
-                console.log("Entering color sphere")
-                brush = this.getAttribute("color").toLowerCase();
+                console.log("Entering color sphere");
+                brush = colorSpheres[i].getAttribute("color");  // Corrected this line
                 console.log("Brush color:", brush);
                 cursor.setAttribute("color", brush);
-
-                if (colorMix.currentColor && colorMix.currentColor !== brush) {
-                    colorMix.previousColor = colorMix.currentColor;
-                    colorMix.currentColor = brush;
-
-                    const mixedColor = mixColors(colorMix.previousColor, colorMix.currentColor);
-                    brush = mixedColor;
-                    cursor.setAttribute("color", brush);
-                } else {
-                    colorMix.currentColor = brush;
-                }
             });
 
             colorSpheres[i].addEventListener("mouseleave", function () {
@@ -50,34 +45,21 @@ AFRAME.registerComponent('load', {
             });
         }
 
-        function mixColors(color1, color2) {
-            const rgb1 = color1.match(/\d+/g).map(Number);
-            const rgb2 = color2.match(/\d+/g).map(Number);
-        
-            while (rgb1.length < 3) {
-                rgb1.push(0);
-            }
-            while (rgb2.length < 3) {
-                rgb2.push(0);
-            }
-        
-            const mixedRGB = rgb1.map((value, index) =>
-                Math.round((value + (rgb2[index] || 0)) / 2)
-            );
-        
-            while (mixedRGB.length < 3) {
-                mixedRGB.push(0);
-            }
-        
-            const mixedColor = `rgb(${mixedRGB.join(", ")})`;
-            console.log("Mixed color:", mixedColor);
-
-                // Update brush color and apply to cursor
-            brush = mixedColor;
-            console.log("Updated brush color:", brush);
-            cursor.setAttribute("color", brush);
-
-            return mixedColor;
+        // Mixes the colors that are on the cursor on the mixer plane
+        for (let i = 0; i < mixer.children.length; i++) {  // Changed mixer to mixer.children
+            mixer.children[i].addEventListener("click", function(e) {
+                cursorColor = cursor.getAttribute("color");
+                mixerColor = mixer.children[i].getAttribute("color");  // Changed mixer to mixer.children
+                if (cursorColor == "black") {
+                    return;
+                } else {
+                    if (mixerColor != "(255, 0, 0)" && mixerColor != "(0, 0, 255)" && mixerColor != "(255, 165, 0)") { // Change mixer color to color of cursor
+                        mixer.children[i].setAttribute("color", cursorColor);  // Changed mixer to mixer.children
+                    } else {
+                        // ... (unchanged)
+                    }
+                }
+            });
         }
 
         /* Painting Pixels */

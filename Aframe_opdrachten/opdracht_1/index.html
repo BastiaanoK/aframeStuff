@@ -30,26 +30,32 @@
             
             ></a-entity>
 
-            <!--<a-entity   
-            gltf-model="#kwast-obj" position = "1 0 -2.5" scale="0.25 0.25 0.25"
-               ></a-entity>
-            orgineel code-->
+            <!--brush obj-->
+          
+            <!--orgineel code-->
             <a-entity   
             gltf-model="#kwast-obj" position = "0 -0.5 -2" scale="0.25 0.25 0.25"
                ></a-entity>
 
                <a-cursor id="js--cursor" color="red"></a-cursor>
-        </a-camera>
+            
+            <a-cursor id="js--cursor" color="black"></a-cursor>
+            </a-camera>
 
         <a-sky color="#33ccff"></a-sky>
      
 
         <!--kleuren-->
-        <a-sphere id="blue"  class="js--color"  color="blue" position="-6 0.5 -4"></a-sphere>
-        <a-sphere id="yellow" class="js--color"  color="yellow" position="6 0.5 -4"></a-sphere>
-        <a-sphere id= "red" class="js--color"  color="red" position="-6 0.5 -8"></a-sphere>
-        <a-sphere id= "green" class="js--color"  color="green" position="6 0.5 -8"></a-sphere>
-        <a-sphere id="colour_mixer" class="js--pixel" color ="white" position = "0 6 -8"></a-sphere>
+        <a-sphere id="blue"  class="js--color"  color= "rgb(0, 0, 255)" position="-6 0.5 -4"></a-sphere>
+        <a-sphere id="yellow" class="js--color"  color="rgb(255, 165, 0)" position="6 0.5 -4"></a-sphere>
+        <a-sphere id= "red" class="js--color"  color="rgb(255, 0, 0)" position="-6 0.5 -8"></a-sphere>
+        <a-sphere id= "green" class="js--color"  color="rgb(0, 179, 113)" position="6 0.5 -8"></a-sphere>
+        
+        <!--mixbollen-->
+        <a-sphere id="color_mixer" class="js--pixel" color ="white" position = "0 6 -8"></a-sphere>
+        <a-sphere id="color_mixer2" class="js--pixel" color ="white" position = "-3 6 -8"></a-sphere>
+        <a-sphere id="color_mixer3" class="js--pixel" color ="white" position = "3 6 -8"></a-sphere>
+
 
         <!--placeholders-->
         <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="0 0 -15"></a-cylinder>
@@ -138,7 +144,6 @@
         <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -10.5" color="grey" width="1" height="1"></a-plane>
         <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -11.5" color="grey" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" position="0.5 8 -8" color="red" width="1" height="1"></a-plane><!--test-->
 
      
         <a-plane class="js--ground" position="0  0  0"  width="50" height="50" rotation = "-90 0 0" color="white"></a-plane><!--grond-->
