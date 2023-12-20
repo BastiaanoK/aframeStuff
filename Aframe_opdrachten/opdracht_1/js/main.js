@@ -48,6 +48,7 @@ AFRAME.registerComponent('load', {
         // Mixes the colors that are on the cursor on the mixer plane
         for (let i = 0; i < mixer.children.length; i++) {  // Changed mixer to mixer.children
             mixer.children[i].addEventListener("click", function(e) {
+                console.log("deze doet het fucking gewoon");
                 cursorColor = cursor.getAttribute("color");
                 mixerColor = mixer.children[i].getAttribute("color");  // Changed mixer to mixer.children
                 if (cursorColor == "black") {
