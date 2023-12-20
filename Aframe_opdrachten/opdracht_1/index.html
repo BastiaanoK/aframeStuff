@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My first VR world</title>
 
+    <script src="js\main.js"> </script>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     
 </head>
@@ -17,132 +18,138 @@
         </a-assets>
     
         <a-camera id="js--camera">
-            <a-entity   
-            animationclick="property: scale; startEvents: click; easing: easeInCubic; dur: 500; from: 0.2 0.2 0.2; to: 1 1 1"
-            animationfusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.2 0.2 0.2"
-            animation="property: scale; startEvents: fusing; easing: easeInCubic; dur: 500; to: 1 1 1 "
-
-            cursor = "fuse: true; fuseTimeout: 2000"
-            material = "color: black; shader: flat"
-            geometry = "primitive: ring; radiusInner: 0.007; radiusOuter: 0.01"
-            position = "0 0.5"
-            raycaster = "objects: .js--place"
-            
+            <!-- Main cursor -->
+            <a-entity
+              id="js--cursor"
+              cursor="fuse: true; fuseTimeout: 500"
+              position="0 0 -1"
+              geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+              material="color: black; shader: flat"
+              raycaster="objects: .js--clickable"
+              animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+              animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 500; from: 1 1 1; to: 0.1 0.1 0.1"
+              animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
             ></a-entity>
-
-            <!--brush obj-->
           
-            <!--orgineel code-->
-            <a-entity   
-            gltf-model="#kwast-obj" position = "0 -0.5 -2" scale="0.25 0.25 0.25"
+            <!-- cursor for teleporting -->
+            <a-entity
+              id="raycast-cursor"
+              cursor="fuse: true; fuseTimeout: 300"
+              position="0 0 -1"
+              raycaster="objects: .js--place"
+            ></a-entity>
+                <a-entity   
+                    gltf-model="#kwast-obj" position = "0 -0.5 -2" scale="0.25 0.25 0.25"
                ></a-entity>
-
-               <a-cursor id="js--cursor" color="red"></a-cursor>
+            </a-camera>
             
-            <a-cursor id="js--cursor" color="black"></a-cursor>
+            <!--orgineel code-->
+               <!-- <a-cursor id="js--cursor" color="red"></a-cursor>
+            
+            <a-cursor id="js--cursor" color="black"></a-cursor> -->
             </a-camera>
 
         <a-sky color="#33ccff"></a-sky>
      
 
         <!--kleuren-->
-        <a-sphere id="blue"  class="js--color"  color= "rgb(0, 0, 255)" position="-6 0.5 -4"></a-sphere>
-        <a-sphere id="yellow" class="js--color"  color="rgb(255, 165, 0)" position="6 0.5 -4"></a-sphere>
-        <a-sphere id= "red" class="js--color"  color="rgb(255, 0, 0)" position="-6 0.5 -8"></a-sphere>
-        <a-sphere id= "green" class="js--color"  color="rgb(0, 179, 113)" position="6 0.5 -8"></a-sphere>
+        <a-sphere id="blue" class="js--pixel js--color js--clickable"  color= "rgb(0, 0, 255)" position="-6 0.5 -4"></a-sphere>
+        <a-sphere id="yellow" class="js--pixel js--color js--clickable"  color="rgb(255, 165, 0)" position="6 0.5 -4"></a-sphere>
+        <a-sphere id= "red" class="js--pixel js--color js--clickable"  color="rgb(255, 0, 0)" position="-6 0.5 -8"></a-sphere>
+        <a-sphere id= "green" class="js--pixel js--color js--clickable"  color="rgb(0, 179, 113)" position="6 0.5 -8"></a-sphere>
         
         <!--mixbollen-->
-        <a-sphere id="color_mixer" class="js--pixel" color ="white" position = "0 6 -8"></a-sphere>
-        <a-sphere id="color_mixer2" class="js--pixel" color ="white" position = "-3 6 -8"></a-sphere>
-        <a-sphere id="color_mixer3" class="js--pixel" color ="white" position = "3 6 -8"></a-sphere>
+        <a-sphere id="color_mixer2" class="js--pixel js--mix-color js--clickable" color ="rgb(0, 0, 0)" position = "0 6 -8"></a-sphere>
+        <a-sphere id="color_mixer1" class="js--pixel js--mix-color js--clickable" color ="rgb(0, 0, 0)" position = "-3 6 -8"></a-sphere>
+        <a-sphere id="color_mixer_result" class="js--pixel js--clickable js--color" color ="rgb(0, 0, 0)" position = "3 6 -8"></a-sphere>
 
 
         <!--placeholders-->
-        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="0 0 -15"></a-cylinder>
-        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="0 0 -4"></a-cylinder>
-        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="4 0 -10"></a-cylinder>
-        <a-cylinder class="js--place" color="red" radius="0.5" height="0.1" position="-4 0 -10"></a-cylinder>
+        <a-cylinder class="js--place" color="rgb(255,0,0)" radius="0.5" height="0.1" position="0 0 -15"></a-cylinder>
+        <a-cylinder class="js--place" color="rgb(255,0,0)" radius="0.5" height="0.1" position="0 0 -4"></a-cylinder>
+        <a-cylinder class="js--place" color="rgb(255,0,0)" radius="0.5" height="0.1" position="4 0 -10"></a-cylinder>
+        <a-cylinder class="js--place" color="rgb(255,0,0)" radius="0.5" height="0.1" position="-4 0 -10"></a-cylinder>
 
 
-        <a-plane class="js--pixel" position="0.5 0 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-0.5 0 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-1.5 0 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="1.5 0 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="0.5 0 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-0.5 0 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-1.5 0 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="1.5 0 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
         
-        <a-plane class="js--pixel" position="0.5 1 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-0.5 1 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="1.5 1 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-1.5 1 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="0.5 1 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-0.5 1 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="1.5 1 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-1.5 1 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" position="0.5 2 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-0.5 2 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="1.5 2 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-1.5 2 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="0.5 2 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-0.5 2 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="1.5 2 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-1.5 2 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" position="0.5 3 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-0.5 3 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="1.5 3 -8" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" position="-1.5 3 -8" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="0.5 3 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-0.5 3 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="1.5 3 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" position="-1.5 3 -8" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -8.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 0 -11.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 0 -8.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 0 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 0 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 0 -11.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -8.5" color="grey"width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 2 -11.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 2 -8.5" color="rgb(128,128,128)"width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 2 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 2 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 2 -11.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -8.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 3 -11.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 3 -8.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 3 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 3 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 3 -11.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -8.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 90 0" position="2 1 -11.5" color="grey"width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 1 -8.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 1 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 1 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 90 0" position="2 1 -11.5" color="rgb(128,128,128)"width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  1 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 1 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  1 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 1 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="0.5  1 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-0.5 1 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="1.5  1 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-1.5 1 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  2 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 2 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  2 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 2 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="0.5  2 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-0.5 2 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="1.5  2 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-1.5 2 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  3 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 3 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  3 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 3 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="0.5  3 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-0.5 3 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="1.5  3 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-1.5 3 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 180 0" position="0.5  0 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-0.5 0 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="1.5  0 -12" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 180 0" position="-1.5 0 -12" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="0.5  0 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-0.5 0 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="1.5  0 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 180 0" position="-1.5 0 -12" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -8.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 1 -11.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 1 -8.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 1 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 1 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 1 -11.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -8.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 2 -11.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 2 -8.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 2 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 2 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 2 -11.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -8.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 3 -11.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 3 -8.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 3 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 3 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 3 -11.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -8.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -9.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -10.5" color="grey" width="1" height="1"></a-plane>
-        <a-plane class="js--pixel" rotation="0 270 0" position="-2 0 -11.5" color="grey" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 0 -8.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 0 -9.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 0 -10.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
+        <a-plane class="js--pixel js--clickable" rotation="0 270 0" position="-2 0 -11.5" color="rgb(128,128,128)" width="1" height="1"></a-plane>
 
 
      
