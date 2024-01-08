@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="reloader.js" charset="utf-8"></script>
+  <title>Star Wars API</title>
+  <script>
+    AFRAME.registerComponent('random-planet', {
+      init: function () {
+        this.el.addEventListener('click', this.onClick.bind(this));
+      },
+      onClick: async function () {
+        try {
+          // Fetch random planet data from the Star Wars API
+          const response = await fetch('https://swapi.dev/api/planets/');
+          const data = await response.json();
+          
+          // Select a random planet
+          const randomIndex = Math.floor(Math.random() * data.results.length);
+          const randomPlanet = data.results[randomIndex];
+
+          // Create a text entity to display the planet information
+          const textEntity = document.createElement('a-entity');
+          textEntity.setAttribute('position', { x: 0, y: 2, z: -4 });
+          textEntity.setAttribute('text', {
+            value: `Planet: ${randomPlanet.name}\nPopulation: ${randomPlanet.population}\nClimate: ${randomPlanet.climate}`,
+            color: '#FFFFFF',
+            align: 'center'
+          });
+
+          // Append the text entity to the scene
+          this.el.sceneEl.appendChild(textEntity);
+
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <a-scene>
+    <!-- Camera and cursor for interaction -->
+    <a-camera>
+      <a-cursor></a-cursor>
+    </a-camera>
+
+    <!-- sphere representing the clickable area for the random planet component -->
+    <a-sphere position="0 1.5 -4" depth="1" height="3" width="3" color="blue" random-planet></a-box>
+  </a-scene>
+</body>
+</html>
